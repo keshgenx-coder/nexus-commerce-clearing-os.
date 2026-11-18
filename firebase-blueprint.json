@@ -1,0 +1,510 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile, shopping preferences, and controlled memory",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "preferences": { "type": "object" },
+        "approvedMemory": { "type": "array" },
+        "savedProducts": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "AI-analyzed product in the NEXUS catalog",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "brand": { "type": "string" },
+        "price": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "features": { "type": "array" },
+        "advantages": { "type": "array" },
+        "limitations": { "type": "array" },
+        "targetCustomer": { "type": "string" },
+        "aiProfile": { "type": "object" },
+        "trustScore": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["productId", "name", "price"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "AI conversation logs and shopping intent history",
+      "type": "object",
+      "properties": {
+        "conversationId": { "type": "string" },
+        "userId": { "type": "string" },
+        "messages": { "type": "array" },
+        "intent": { "type": "object" },
+        "recommendations": { "type": "array" },
+        "feedback": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["conversationId", "userId"]
+    },
+    "Merchant": {
+      "title": "Merchant",
+      "description": "Merchant business profile and analytics",
+      "type": "object",
+      "properties": {
+        "merchantId": { "type": "string" },
+        "businessName": { "type": "string" },
+        "products": { "type": "array" },
+        "analytics": { "type": "object" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["merchantId", "businessName"]
+    },
+    "ProductIntelligence": {
+      "title": "ProductIntelligence",
+      "description": "Deep AI understanding of products for expert recommendations",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "productCategory": { "type": "string" },
+        "primaryPurpose": { "type": "string" },
+        "idealCustomer": { "type": "string" },
+        "useCases": { "type": "array" },
+        "keyBenefits": { "type": "array" },
+        "limitations": { "type": "array" },
+        "importantSpecifications": { "type": "object" },
+        "comparisonFactors": { "type": "array" },
+        "competitorProducts": { "type": "array" },
+        "valueScore": { "type": "number" },
+        "trustScore": { "type": "number" },
+        "aiSummary": { "type": "string" }
+      },
+      "required": ["productId", "valueScore", "trustScore"]
+    },
+    "RecommendationLog": {
+      "title": "RecommendationLog",
+      "description": "Log of user query, products shown, AI reasoning, and decision outcome",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string" },
+        "userId": { "type": "string" },
+        "query": { "type": "string" },
+        "intentGoal": { "type": "string" },
+        "productsShown": { "type": "array" },
+        "aiReasoning": { "type": "string" },
+        "confidenceScore": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["logId", "query", "confidenceScore"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "User feedback and recommendation learning signals",
+      "type": "object",
+      "properties": {
+        "feedbackId": { "type": "string" },
+        "userId": { "type": "string" },
+        "productId": { "type": "string" },
+        "rating": { "type": "number" },
+        "purchaseResult": { "type": "boolean" },
+        "improvementSignal": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["feedbackId", "productId", "rating"]
+    },
+    "MerchantAnalytics": {
+      "title": "MerchantAnalytics",
+      "description": "Sales, customer insights, and product performance analytics for merchants",
+      "type": "object",
+      "properties": {
+        "merchantId": { "type": "string" },
+        "salesData": { "type": "object" },
+        "productPerformance": { "type": "array" },
+        "customerInsights": { "type": "object" },
+        "recommendations": { "type": "array" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["merchantId"]
+    },
+    "AiActionLog": {
+      "title": "AiActionLog",
+      "description": "Audit log for merchant growth agent actions and human approval state",
+      "type": "object",
+      "properties": {
+        "actionId": { "type": "string" },
+        "merchantId": { "type": "string" },
+        "agentName": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "reasoning": { "type": "string" },
+        "approvalStatus": { "type": "string" },
+        "result": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["actionId", "agentName", "approvalStatus"]
+    },
+    "AiAgent": {
+      "title": "AiAgent",
+      "description": "Registered NEXUS AI agent worker details and capabilities",
+      "type": "object",
+      "properties": {
+        "agentId": { "type": "string" },
+        "agentName": { "type": "string" },
+        "agentType": { "type": "string" },
+        "purpose": { "type": "string" },
+        "capabilities": { "type": "array" },
+        "allowedTools": { "type": "array" },
+        "permissions": { "type": "object" },
+        "memoryPolicy": { "type": "string" },
+        "status": { "type": "string" },
+        "performanceScore": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["agentId", "agentName", "agentType"]
+    },
+    "AgentMessage": {
+      "title": "AgentMessage",
+      "description": "Inter-agent communication message log",
+      "type": "object",
+      "properties": {
+        "messageId": { "type": "string" },
+        "senderAgent": { "type": "string" },
+        "receiverAgent": { "type": "string" },
+        "task": { "type": "string" },
+        "data": { "type": "object" },
+        "priority": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["messageId", "senderAgent", "receiverAgent"]
+    },
+    "AiTask": {
+      "title": "AiTask",
+      "description": "Task assigned to NEXUS multi-agent workforce",
+      "type": "object",
+      "properties": {
+        "taskId": { "type": "string" },
+        "request": { "type": "string" },
+        "assignedAgent": { "type": "string" },
+        "status": { "type": "string" },
+        "priority": { "type": "string" },
+        "result": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["taskId", "assignedAgent", "status"]
+    },
+    "ApprovalRequest": {
+      "title": "ApprovalRequest",
+      "description": "Human-in-the-loop approval request for high-risk AI agent actions",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "agent": { "type": "string" },
+        "action": { "type": "string" },
+        "reason": { "type": "string" },
+        "riskLevel": { "type": "string" },
+        "approvedBy": { "type": "string" },
+        "status": { "type": "string" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["requestId", "agent", "action", "status"]
+    },
+    "Cart": {
+      "title": "Cart",
+      "description": "Customer shopping cart and saved items",
+      "type": "object",
+      "properties": {
+        "cartId": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { "type": "array" },
+        "savedForLater": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["cartId", "userId"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Commerce order transaction record",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "merchantId": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "paymentStatus": { "type": "string" },
+        "orderStatus": { "type": "string" },
+        "shippingStatus": { "type": "string" },
+        "shippingAddress": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["orderId", "userId", "items", "totalAmount"]
+    },
+    "ReturnRequest": {
+      "title": "ReturnRequest",
+      "description": "Customer order return request and AI resolution tracking",
+      "type": "object",
+      "properties": {
+        "returnId": { "type": "string" },
+        "orderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "reason": { "type": "string" },
+        "status": { "type": "string" },
+        "resolution": { "type": "string" },
+        "aiAssessment": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["returnId", "orderId", "reason", "status"]
+    },
+    "Creator": {
+      "title": "Creator",
+      "description": "Creator account and trust storefront profile",
+      "type": "object",
+      "properties": {
+        "creatorId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "expertise": { "type": "string" },
+        "followers": { "type": "number" },
+        "trustScore": { "type": "number" },
+        "productsRecommended": { "type": "number" },
+        "earnings": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["creatorId", "name", "category", "trustScore"]
+    },
+    "Community": {
+      "title": "Community",
+      "description": "Topic and domain-specific commerce discussion community",
+      "type": "object",
+      "properties": {
+        "communityId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "members": { "type": "number" },
+        "discussions": { "type": "array" },
+        "popularProducts": { "type": "array" },
+        "expertMembers": { "type": "array" }
+      },
+      "required": ["communityId", "name", "category"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Social commerce post published by creators",
+      "type": "object",
+      "properties": {
+        "postId": { "type": "string" },
+        "creatorId": { "type": "string" },
+        "content": { "type": "string" },
+        "products": { "type": "array" },
+        "engagement": { "type": "object" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["postId", "creatorId", "content"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Verified purchase review and social proof record",
+      "type": "object",
+      "properties": {
+        "reviewId": { "type": "string" },
+        "userId": { "type": "string" },
+        "productId": { "type": "string" },
+        "experience": { "type": "string" },
+        "rating": { "type": "number" },
+        "verifiedPurchase": { "type": "boolean" }
+      },
+      "required": ["reviewId", "userId", "productId", "rating"]
+    },
+    "CreatorAnalytics": {
+      "title": "CreatorAnalytics",
+      "description": "Creator performance and sales conversion analytics",
+      "type": "object",
+      "properties": {
+        "creatorId": { "type": "string" },
+        "views": { "type": "number" },
+        "clicks": { "type": "number" },
+        "sales": { "type": "number" },
+        "conversion": { "type": "number" }
+      },
+      "required": ["creatorId"]
+    },
+    "CustomerIntelligence": {
+      "title": "CustomerIntelligence",
+      "description": "Customer Digital Twin profile including preferences, buying decision factors, and memory consent",
+      "type": "object",
+      "properties": {
+        "customerId": { "type": "string" },
+        "preferences": { "type": "object" },
+        "shoppingGoals": { "type": "array" },
+        "budgetPatterns": { "type": "object" },
+        "brandPreferences": { "type": "array" },
+        "categoryInterests": { "type": "array" },
+        "decisionFactors": { "type": "object" },
+        "savedItems": { "type": "array" },
+        "interactionHistory": { "type": "array" },
+        "memoryConsent": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["customerId", "memoryConsent"]
+    },
+    "MemoryEvent": {
+      "title": "MemoryEvent",
+      "description": "User privacy-controlled memory event record",
+      "type": "object",
+      "properties": {
+        "eventId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "memoryType": { "type": "string" },
+        "memoryValue": { "type": "string" },
+        "consentStatus": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["eventId", "customerId", "memoryType", "memoryValue"]
+    },
+    "RecommendationHistory": {
+      "title": "RecommendationHistory",
+      "description": "Historical recommendation record with AI reasoning and user response outcome",
+      "type": "object",
+      "properties": {
+        "recommendationId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "productsShown": { "type": "array" },
+        "reasoning": { "type": "string" },
+        "userResponse": { "type": "string" },
+        "outcome": { "type": "string" }
+      },
+      "required": ["recommendationId", "customerId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and memory"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Product catalog"
+    },
+    "/conversations/{conversationId}": {
+      "schema": "Conversation",
+      "description": "AI shopping conversation records"
+    },
+    "/merchants/{merchantId}": {
+      "schema": "Merchant",
+      "description": "Merchant accounts"
+    },
+    "/merchant_analytics/{merchantId}": {
+      "schema": "MerchantAnalytics",
+      "description": "Merchant sales data and customer insight logs"
+    },
+    "/ai_action_logs/{actionId}": {
+      "schema": "AiActionLog",
+      "description": "Growth agent audit logs and human approval state"
+    },
+    "/product_intelligence/{productId}": {
+      "schema": "ProductIntelligence",
+      "description": "AI-generated product understanding profiles"
+    },
+    "/recommendation_logs/{logId}": {
+      "schema": "RecommendationLog",
+      "description": "History of AI recommendations and confidence scores"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback and recommendation signal tracking"
+    },
+    "/ai_agents/{agentId}": {
+      "schema": "AiAgent",
+      "description": "Registered AI agent registry"
+    },
+    "/agent_messages/{messageId}": {
+      "schema": "AgentMessage",
+      "description": "Inter-agent communication logs"
+    },
+    "/ai_tasks/{taskId}": {
+      "schema": "AiTask",
+      "description": "Multi-agent assigned tasks"
+    },
+    "/approval_requests/{requestId}": {
+      "schema": "ApprovalRequest",
+      "description": "Human-in-the-loop approval queue"
+    },
+    "/carts/{cartId}": {
+      "schema": "Cart",
+      "description": "Customer shopping cart"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer order transactions"
+    },
+    "/return_requests/{returnId}": {
+      "schema": "ReturnRequest",
+      "description": "Customer order return requests"
+    },
+    "/creators/{creatorId}": {
+      "schema": "Creator",
+      "description": "Creator account profiles"
+    },
+    "/communities/{communityId}": {
+      "schema": "Community",
+      "description": "Topic communities and discussion groups"
+    },
+    "/posts/{postId}": {
+      "schema": "Post",
+      "description": "Social commerce posts and recommendations"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Verified product reviews"
+    },
+    "/creator_analytics/{creatorId}": {
+      "schema": "CreatorAnalytics",
+      "description": "Creator performance tracking"
+    },
+    "/customer_intelligence/{customerId}": {
+      "schema": "CustomerIntelligence",
+      "description": "Customer Digital Twin profile & memory consent"
+    },
+    "/memory_events/{eventId}": {
+      "schema": "MemoryEvent",
+      "description": "User privacy-controlled memory event audit log"
+    },
+    "/recommendation_history/{recommendationId}": {
+      "schema": "RecommendationHistory",
+      "description": "Historical recommendation records and feedback"
+    },
+    "/campaigns/{campaignId}": {
+      "schema": "Campaign",
+      "description": "AI Marketing Engine campaign strategies and performance tracking"
+    },
+    "/customer_segments/{segmentId}": {
+      "schema": "CustomerSegment",
+      "description": "AI-generated customer segment profiles"
+    },
+    "/marketing_insights/{insightId}": {
+      "schema": "MarketingInsight",
+      "description": "Proactive growth and conversion intelligence insights"
+    },
+    "/analytics_events/{eventId}": {
+      "schema": "AnalyticsEvent",
+      "description": "Real-time user & system analytics events log"
+    },
+    "/business_insights/{insightId}": {
+      "schema": "BusinessInsight",
+      "description": "Executive decision-formatted business intelligence insights"
+    },
+    "/ai_reports/{reportId}": {
+      "schema": "AIReport",
+      "description": "Generated daily, weekly, and monthly AI executive reports"
+    },
+    "/performance_metrics/{metricId}": {
+      "schema": "PerformanceMetric",
+      "description": "Aggregated platform performance metrics over time"
+    }
+  }
+}

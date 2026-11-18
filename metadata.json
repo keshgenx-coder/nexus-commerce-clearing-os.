@@ -1,0 +1,6 @@
+{
+  "name": "NEXUS Autonomous Commerce Clearing OS",
+  "description": "Deterministic transaction-path clearing matching real-time retail cart demand directly with idle wholesale factory capacity under hardcoded 32% margin floors.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

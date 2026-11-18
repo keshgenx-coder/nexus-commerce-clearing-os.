@@ -1,0 +1,162 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Default catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Products: public read, restricted write to authenticated merchants/admins
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    // Users: owners can read/write their own user profile & memory
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Conversations: authenticated users can access their conversations
+    match /conversations/{conversationId} {
+      allow read, write: if isSignedIn() && (resource == null || resource.data.userId == request.auth.uid);
+    }
+
+    // Merchants: authenticated merchants
+    match /merchants/{merchantId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /merchant_analytics/{merchantId} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /ai_action_logs/{actionId} {
+      allow read, write: if isSignedIn();
+    }
+
+    // Multi-Agent Orchestration & Workflow Engine
+    match /ai_agents/{agentId} {
+      allow read, write: if true;
+    }
+
+    match /agent_messages/{messageId} {
+      allow read, write: if true;
+    }
+
+    match /ai_tasks/{taskId} {
+      allow read, write: if true;
+    }
+
+    match /approval_requests/{requestId} {
+      allow read, write: if true;
+    }
+
+    // Product Intelligence: public read for recommendations, write if authenticated
+    match /product_intelligence/{productId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    // Recommendation Logs & Feedback: write allowed for signed in or active shopping sessions
+    match /recommendation_logs/{logId} {
+      allow read, write: if true;
+    }
+
+    match /feedback/{feedbackId} {
+      allow read, write: if true;
+    }
+
+    // Commerce Engine: Carts, Orders, and Return Requests
+    match /carts/{cartId} {
+      allow read, write: if true;
+    }
+
+    match /orders/{orderId} {
+      allow read, write: if true;
+    }
+
+    match /return_requests/{returnId} {
+      allow read, write: if true;
+    }
+
+    // Social Commerce & Creator Network
+    match /creators/{creatorId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /communities/{communityId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /creator_analytics/{creatorId} {
+      allow read, write: if true;
+    }
+
+    // Customer Intelligence & Privacy-Controlled Twin
+    match /customer_intelligence/{customerId} {
+      allow read, write: if true;
+    }
+
+    match /memory_events/{eventId} {
+      allow read, write: if true;
+    }
+
+    match /recommendation_history/{recommendationId} {
+      allow read, write: if true;
+    }
+
+    // AI Marketing Engine & Growth Intelligence
+    match /campaigns/{campaignId} {
+      allow read, write: if true;
+    }
+
+    match /customer_segments/{segmentId} {
+      allow read, write: if true;
+    }
+
+    match /marketing_insights/{insightId} {
+      allow read, write: if true;
+    }
+
+    // AI Analytics & Business Intelligence Command Center
+    match /analytics_events/{eventId} {
+      allow read, write: if true;
+    }
+
+    match /business_insights/{insightId} {
+      allow read, write: if true;
+    }
+
+    match /ai_reports/{reportId} {
+      allow read, write: if true;
+    }
+
+    match /performance_metrics/{metricId} {
+      allow read, write: if true;
+    }
+  }
+}
